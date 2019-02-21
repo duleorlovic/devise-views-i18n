@@ -1,0 +1,13 @@
+<div class="d-none-not-important" id='notice-holder'><%= notice %></div>
+<% if notice %>
+  <script>
+    flash_notice('<%= j notice %>');
+  </script>
+<% end %>
+
+<div class="d-none-not-important" id='alert-holder'><%= alert %></div>
+<% if alert %>
+  <script>
+    flash_alert('<%= j alert %>');
+  </script>
+<% end %>
