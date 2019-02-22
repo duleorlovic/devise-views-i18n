@@ -1,0 +1,25 @@
+en:
+  site_title: My app
+  language_name:
+    en: English
+    sr: Српски
+    sr-latin: Srpski latinica
+  sent_messages:
+    # 1, 21, 31 ...
+    one: '%{count} message is sent'
+    # 2, 3, 4, 22, 23, 24, 32, 33, 34 ...
+    few: '%{count} messages are sent'
+    # all other integers: 5, 6, ... 9, 10, 11, 12, 13, 14 ... 20, 25, ...
+    other: '%{count} messages are sent'
+  add: Add
+  add_new: Add new
+  add_more: Add more
+  create: Create
+  edit: Edit
+  update: Update
+  delete: Delete
+  are_you_sure_to_remove_item_name: Да ли сте сигурни да желите да обришете %{item_name} ?
+  data_item_name_successfully_created: '%{item_name} successfully created'
+  data_item_name_successfully_updated: '%{item_name} successfully updated'
+  data_item_name_successfully_changed: '%{item_name} successfully changed'
+  data_item_name_successfully_deleted: '%{item_name} successfully deleted'

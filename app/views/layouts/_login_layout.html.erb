@@ -2,7 +2,7 @@
   <% if current_user %>
     <div class='text-right pr-2'>
       <strong><%= current_user.email %></strong>
-      <%= link_to t('sign_out'), destroy_user_session_path, method: :delete %>
+      <%= link_to t('my_devise.sign_out'), destroy_user_session_path, method: :delete %>
     </div>
   <% end %>
   <div class='text-center text-muted'>
