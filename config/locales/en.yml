@@ -18,7 +18,7 @@ en:
   edit: Edit
   update: Update
   delete: Delete
-  are_you_sure_to_remove_item_name: Да ли сте сигурни да желите да обришете %{item_name} ?
+  are_you_sure_to_remove_item_name: Are you sure to remove %{item_name} ?
   data_item_name_successfully_created: '%{item_name} successfully created'
   data_item_name_successfully_updated: '%{item_name} successfully updated'
   data_item_name_successfully_changed: '%{item_name} successfully changed'

@@ -43,7 +43,7 @@ cp -r tmp/devise-views-i18n/app/views/devise/ app/views/
 # home page
 cp tmp/devise-views-i18n/app/views/pages/home.html.erb app/views/pages
 # pluralization config
-cp tmp/devise-views-i18n/config/initializes/* config/initializers/
+cp tmp/devise-views-i18n/config/initializers/* config/initializers/
 # locales
 cp tmp/devise-views-i18n/config/locales/* config/locales/
 # styles
@@ -61,7 +61,51 @@ Install Bootstrap using yarn and import to application pack
 
 ```
 yarn add bootstrap jquery popper.js
+```
 
+Than provide it to webpacker
+
+```
+// config/webpack/environment.js
+const { environment } = require('@rails/webpacker')
+const webpack = require('webpack');
+environment.plugins.append('Provide', new webpack.ProvidePlugin({
+  $: 'jquery',
+  jQuery: 'jquery',
+  Popper: ['popper.js', 'default']
+}));
+module.exports = environment
+```
+
+and include in application pack
+
+```
+// app/javascript/packs/application.js
+
+import 'bootstrap'
+
+import '../turbolinks.load'
+```
+and create separate pack for turbolinks:load events
+
+```
+// app/javascripts/turbolinks.load.js
+document.addEventListener('turbolinks:load', () => {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+```
+
+You can load stylesheets using webpacker by creating new module and including it
+in `app/javascript/packs/application.js` like `import '../stylesheets/application'`
+Use tilda when referencing node modules.
+
+~~~
+// app/javascript/stylesheets/application.scss
+@import '~bootstrap/scss/bootstrap';
+~~~
+
+OLD WAY for sprockets
+```
 cat >> app/javascript/packs/application.js <<HERE_DOC
 require('bootstrap')
 HERE_DOC

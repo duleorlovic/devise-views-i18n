@@ -31,7 +31,7 @@
         <li class='nav-item px-1'>
           <% if current_user %>
             <strong><%= current_user.email %></strong>
-            <%= link_to t('sign_out'), destroy_user_session_path, method: :delete %>
+            <%= link_to t('my_devise.sign_out'), destroy_user_session_path, method: :delete %>
           <% else %>
             <%= link_to t('my_devise.sign_in'), new_user_session_path %>
           <% end %>
