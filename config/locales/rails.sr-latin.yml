@@ -116,7 +116,7 @@ sr-latin:
       second: Sekund
       year: Godina
   errors:
-    format: Polje "%{attribute}" %{message}
+    format: Polje %{attribute} %{message}
 
     # The values :model, :attribute and :value are always available for interpolation
     # The value :count is available when applicable. Can be used for pluralization.

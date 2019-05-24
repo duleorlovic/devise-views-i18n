@@ -20,7 +20,7 @@ module PagesHelper
     @title || fetch_breadcrumb_list.keys.last
   end
 
-  def breadcrumb(list)
+  def breadcrumb(list = {})
     @breadcrumb = list
   end
 

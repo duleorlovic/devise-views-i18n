@@ -1,5 +1,25 @@
 <% login_layout %>
 
+<% if Rails.env.development? || Rails.application.secrets.is_staging %>
+  <small>
+    Only on development or staging
+    <dl>
+      <dt>superadmin</dt>
+      <dd>
+        <% User.where(superadmin: true).each do |user| %>
+          <%= link_to user.email, sign_in_development_path(user) %>
+        <% end %>
+      </dd>
+      <dt>users</dt>
+      <dd>
+        <% User.limit(5).each do |user| %>
+          <%= link_to user.email, sign_in_development_path(user) %>
+        <% end %>
+      </dd>
+    </dl>
+  </small>
+<% end %>
+
 <% if devise_mapping.omniauthable? %>
   <%= link_to user_google_oauth2_omniauth_authorize_path, class: 'btn btn-block button-google text-white d-flex justify-content-start align-items-center' do %>
     <i class="fab fa-google" aria-hidden="true"></i>

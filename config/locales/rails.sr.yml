@@ -116,7 +116,7 @@ sr:
       second: Секунд
       year: Година
   errors:
-    format: Поље "%{attribute}" %{message}
+    format: Поље %{attribute} %{message}
 
     # The values :model, :attribute and :value are always available for interpolation
     # The value :count is available when applicable. Can be used for pluralization.

@@ -1,0 +1,11 @@
+<a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+  <%= image_tag "flagpedia.net/#{locale}.png", class: 'flag--width', 'data-test': 'language-holder' %>
+</a>
+<div class="dropdown-menu dropdown-menu--without-min-width" aria-labelledby="navbarDropdown">
+  <% I18n.available_locales.each do |locale| %>
+    <%= link_to set_locale_path(locale: locale), 'data-turbolinks': false, class: 'dropdown-item' do %>
+      <%= image_tag "flagpedia.net/#{locale}.png", class: 'flag--width' %>
+      <%= t("language_name.#{locale}") %>
+    <% end %>
+  <% end %>
+</div>

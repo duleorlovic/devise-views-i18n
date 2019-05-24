@@ -89,11 +89,11 @@ sr:
     we_need_your_current_password_to_confirm_your_changes: потребна нам је тренутна лозинка да би смо потврдили измене
     cancel_my_account: Обриши мој налог
     unhappy: Незадовољни
-    any_reason: Неки разлог ?
     new_password: Нова лозинка
     problem_with_account: Проблем са налогом ?
     or: или
     send: Пошаљи
+    current_password_is_not_correct: Тренутна лозинка није исправна
   my_devise_mailer:
     we_are_contacting_you_someone_change_password: Пишемо вам да вас обавестимо да је ваша лозинка промењена.
     we_are_contacting_you_email_is_beign_changed_to: Пишемо вам да вас обавестимо да је у току промена ваше имејл адресе у %{email}.

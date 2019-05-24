@@ -1,0 +1,19 @@
+<% encrypted_password = User.new.send(:password_digest, 'password') %>
+DEFAULTS: &DEFAULTS
+  name: $LABEL Name
+  email: $LABEL@email.com
+  company: cable_tv
+  confirmed_at: 2018-12-22
+  encrypted_password: <%= encrypted_password %>
+  locale: <%= I18n.default_locale %>
+
+superadmin:
+  <<: *DEFAULTS
+  superadmin: true
+
+user:
+  <<: *DEFAULTS
+
+serbian_user:
+  <<: *DEFAULTS
+  locale: 'sr'

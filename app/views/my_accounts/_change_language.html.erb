@@ -1,0 +1,8 @@
+<% I18n.available_locales.each do |locale| %>
+  <p>
+    <%= link_to set_locale_path(locale: locale), 'data-turbolinks': false do %>
+      <%= image_tag "flagpedia.net/#{locale}.png", class: 'flag--width' %>
+      <%= t("language_name.#{locale}") %>
+    <% end %>
+  </p>
+<% end %>
