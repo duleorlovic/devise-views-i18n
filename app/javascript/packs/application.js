@@ -16,8 +16,18 @@ require('bootstrap')
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+// node_modules
+import 'bootstrap'
+import 'select2' // globally assign select2 fn to $ element
+// it is not the same as: require('select2')
+
 // our stimulus stuff
 import 'controllers'
 
 // our js stuff
-import '../turbolinks.load'
+import 'turbolinks.load'
+import 'window_functions'
+
+// our stylesheet
+import 'stylesheet/post_css'
+import 'stylesheet/application'
