@@ -1,5 +1,8 @@
 <nav aria-label="breadcrumb" class='d-flex'>
   <ol class="flex-grow-1 breadcrumb breadcrumb--no-margin-bottom">
+    <% unless current_user.present? %>
+      <%= render 'layouts/choose_language' %>
+    <% end %>
     <li>
       <%= link_to root_path do %>
         <%# both png and svg have flickering effect with turbolinks %>
@@ -37,7 +40,7 @@
       <% if current_user.present? %>
         <%= button_tag class: "btn btn-link btn--no-padding", type: 'button', 'data-controller': 'activate', 'data-action': 'activate#toggle', 'data-activate-selector': '#sidebar,.sidebar__overlay' do %>
           <i class="demo-icon icon-menu d-sm-none"></i>
-          <span class='d-none d-sm-block'><%= current_user.name %></span>
+          <span class='d-none d-sm-block'><%= current_user.email %></span>
         <% end %>
       <% else %>
         <div class='mx-2'>

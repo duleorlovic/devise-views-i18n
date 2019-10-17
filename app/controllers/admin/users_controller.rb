@@ -29,7 +29,7 @@ class Admin::UsersController < Admin::BaseController
 
   def destroy
     @user.destroy!
-    redirect_to admin_useres_path, notice: helpers.t_notice('notice_successfully_deleted', User)
+    redirect_to admin_useres_path, notice: helpers.t_notice('successfully_deleted', User)
   end
 
   def _set_user
