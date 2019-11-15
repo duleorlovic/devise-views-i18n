@@ -1,0 +1,4 @@
+my_comp_user:
+  company: my_comp
+  user: user
+  position: <%= CompanyUser.positions[:admin] %>

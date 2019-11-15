@@ -13,6 +13,15 @@ html, body
   // we need navigation to span all 100% vertical heigh
   height: calc(100% - #{$header-height})
 
+.left-navigation--min-width
+  min-width: 10rem
+
+.body__content_without_left-navigation
+  width: calc(100% - 10rem)
+  @include media-breakpoint-only(xs)
+    width: 100%
+
+
 .body__sticky-footer
   position: fixed
   bottom: 0

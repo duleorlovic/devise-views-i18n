@@ -9,13 +9,4 @@
   user = User.new password: 'a'
   user.valid?
   user.errors.full_messages.to_sentence
-%><br>
-<%=
-  User.find_or_create_by!(email: 'already@taken.email') do |user|
-    user.password = 'asdfasdf'
-  end
-  user = User.new email: 'already@taken.email'
-  user.valid?
-  user.errors
-  user.errors.full_messages.to_sentence
-%><br>
+  %>

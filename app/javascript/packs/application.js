@@ -26,8 +26,7 @@ import 'controllers'
 
 // our js stuff
 import 'turbolinks.load'
-import 'window_functions'
 
 // our stylesheet
-import 'stylesheet/post_css'
+import 'stylesheet/postcss-import'
 import 'stylesheet/application'

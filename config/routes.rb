@@ -11,11 +11,9 @@ Rails.application.routes.draw do
   get 'set_locale', to: 'application#set_locale'
   get 'contact', to: 'pages#contact'
   post 'contact', to: 'pages#submit_contact'
-  get 'sample-error', to: 'pages#sample_error'
-  get 'sample-error-in-javascript', to: 'pages#sample_error_in_javascript'
-  get 'sample-error-in-javascript-ajax', to: 'pages#sample_error_in_javascript_ajax'
   post 'notify-javascript-error', to: 'pages#notify_javascript_error'
-  get 'sample-error-in-sidekiq', to: 'pages#sample_error_in_sidekiq'
+
+  resource :sign_up
 
   resource :my_account do
     get :change_email
@@ -26,8 +24,27 @@ Rails.application.routes.draw do
     patch :update
   end
 
+  resource :my_company do
+    patch :submit_choose
+    delete :remove_me_from
+  end
+  resources :company_users do
+    collection do
+      post :search
+    end
+  end
+
   namespace :admin do
-    get 'dashboard', to: 'dashboard#index'
-    resources :users
+    resource :dashboard do
+      get :sample_error
+      get :sample_error_in_javascript
+      get :sample_error_in_javascript_ajax
+      get :sample_error_in_sidekiq
+    end
+    resources :users do
+      collection do
+        post :search
+      end
+    end
   end
 end

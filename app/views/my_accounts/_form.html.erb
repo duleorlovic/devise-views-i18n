@@ -1,5 +1,5 @@
 <div id='remote-form'>
-  <%= bootstrap_form_for @user, url: my_account_path, remote: true, layout: :horizontal do |f| %>
+  <%= bootstrap_form_with model: @user, url: my_account_path, layout: :horizontal do |f| %>
     <%= f.text_field :name %>
     <div class='remote-form__actions'>
       <%= f.submit class: 'btn btn-primary'%>

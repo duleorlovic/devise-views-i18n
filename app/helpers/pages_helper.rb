@@ -12,6 +12,14 @@ module PagesHelper
     @login_title
   end
 
+  def blank_layout
+    @blank_layout = true
+  end
+
+  def blank_layout?
+    @blank_layout
+  end
+
   def title(name)
     @title = name
   end

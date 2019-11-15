@@ -2,7 +2,7 @@
   <%= bootstrap_form_for current_user, url: my_account_path(partial: 'change_email'), remote: true, layout: :horizontal do |f| %>
     <%= f.email_field :email, autofocus: true, autocomplete: 'email', value: '' %>
     <div class='remote-form__actions'>
-      <%= f.submit class: 'btn btn-primary'%>
+      <%= f.submit t('update'), class: 'btn btn-primary'%>
     </div>
   <% end %>
 </div>

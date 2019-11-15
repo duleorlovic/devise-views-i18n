@@ -7,11 +7,4 @@
   <%= t_crud('add_new', User) %>
 <% end %>
 <br>
-<% @users.each do |user| %>
-  <%= link_to user.name, admin_user_path(user) %>
-  <%= link_to sign_in_development_path(user), class: 'btn btn-primary' do %>
-    <%= t('log_in_as') %>
-    <%= user.email %>
-  <% end %>
-  <br>
-<% end %>
+<%= @datatable.render_html search_admin_users_path(format: :json) %>

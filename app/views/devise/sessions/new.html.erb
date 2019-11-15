@@ -1,6 +1,6 @@
 <% login_layout %>
 
-<% if Rails.env.development? || Rails.application.secrets.is_staging %>
+<% if Rails.env.development? || Rails.application.credentials.is_staging %>
   <small>
     Only on development or staging
     <dl>
