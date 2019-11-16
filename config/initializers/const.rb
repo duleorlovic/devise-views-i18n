@@ -13,6 +13,8 @@ class Const
         # port: (Rails.env.production? ? nil : Rails.env.development? ? Rack::Server.new.options[:Port] : 3333),
         port: (Rails.env.development? ? Rack::Server.new.options[:Port] : nil),
       },
+      mailer_sender: 'My app <me@app.com>',
+      exception_recipients: 'duke@gmail.com',
     )
   end
 

@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :chrome, screen_size: [1400, 1400]
+  # On CI Github Actions we need to use headless_chrome
+  # also Redis has to be installed
+  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
 
   def display_image
     system "gnome-open #{image_path} &"

@@ -1,3 +1,4 @@
+# this is a copy from https://github.com/rails/rails/blob/master/railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb
 # frozen_string_literal: true
 
 require "rails/generators/erb"
@@ -25,7 +26,7 @@ module Erb # :nodoc:
 
     private
       def available_views
-        %w(index edit show new _form)
+        %w(index show _form)
       end
     end
   end

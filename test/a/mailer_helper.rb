@@ -9,7 +9,7 @@ module MailerHelpers
   # inherit from ActiveJob::TestCase
   # or include ActiveJob::TestHelper
   # assert_performed_jobs 1, only: ActionMailer::DeliveryJob do
-  def give_me_all_mail_and_clear_mails
+  def give_me_all_mails_and_clear_mails
     all = ActionMailer::Base.deliveries
     clear_mails
     all

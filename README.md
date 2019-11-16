@@ -14,6 +14,11 @@ rubocop --auto-correct # to autocorrent correct some files (except lineLength)
 git commit -m'rails new myapp'
 ```
 
+Home page
+```
+rails g pages home contact
+```
+
 First you need to have devise installed, but usually users from same company
 (club, organization) want to share permissions, so first create `company` model
 and than `user` and than `company_users` with position.
@@ -125,11 +130,17 @@ config/initializers, config/locales
 ```
 cp -r tmp/devise-views-i18n/app/* app/
 cp -r tmp/devise-views-i18n/config/* config/
-cp -r tmp/devise-views-i18n/test/* test/
 cp tmp/devise-views-i18n/db/seeds.rb db/
 cp tmp/devise-views-i18n/Procfile .
+cp -r tmp/devise-views-i18n/lib/rails lib
+cp -r tmp/devise-views-i18n/lib/templates lib
 ```
 
+For test we need to copy main `test_helper.rb` since it is generated with `rails
+new`. For other stuff we use templates.
+```
+cp -r tmp/devise-views-i18n/test/* test/
+```
 
 Check how layouts, config files are updated
 ```
@@ -152,6 +163,7 @@ Development config
   config.action_mailer.delivery_method = :letter_opener
   config.generators.assets = false
   config.generators.helper = false
+  config.generators.jbuilder = false
 ```
 Some modifications
 ```
@@ -165,17 +177,16 @@ vi config/sidekiq.yml
 # edit site title
 vi config/locales/en.yml
 # change mailer sender for devise
-# config.mailer_sender = Rails.application.credentials.mailer_sender
 vi config/initializers/devise.rb
+  config.mailer_sender = Const.common[:mailer_sender]
 # change mailer sender for application mailers
-# default from: Rails.application.credentials.mailer_sender
 vi app/mailers/application_mailer.rb
+  default from: Const.common[:mailer_sender]
 ```
 
 Add credentials to send emails through SMTP, exception notification
 ```
 rails credentials:edit
-mailer_sender: My Company <my@gmail.com>
 exception_recipients: my@gmail.com
 
 smtp_username: my@gmail.com

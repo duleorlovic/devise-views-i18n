@@ -30,7 +30,7 @@ class Notify
   end
 end
 
-if (receivers = Rails.application.credentials.exception_recipients).present?
+if (receivers = Const.common[:exception_recipients]).present?
   ExceptionNotification.configure do |config|
     # Ignore additional exception types. Those are already included
     # ActiveRecord::RecordNotFound
@@ -108,7 +108,7 @@ if (receivers = Rails.application.credentials.exception_recipients).present?
     # Email notifier sends notifications by email.
     config.add_notifier :email,
                         email_prefix: "[#{Const.common[:name]}] ",
-                        sender_address: Rails.application.credentials.mailer_sender,
+                        sender_address: Const.common[:mailer_sender],
                         exception_recipients: receivers.split(',')
   end
 end
