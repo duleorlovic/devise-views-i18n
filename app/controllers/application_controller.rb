@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
   around_action :_set_locale_from_session
+  # before_action :sleep_some_time
+
+  def sleep_some_time
+    sleep 2
+  end
 
   def _set_locale_from_session
     locale = current_user&.locale ||
@@ -62,9 +67,15 @@ class ApplicationController < ActionController::Base
                       else
                         redirect_path_or_proc
                       end
-      render js: %(
-        window.location.assign('#{redirect_path}');
-      )
+      if redirect_path.present?
+        render js: %(
+          window.location.assign('#{redirect_path}');
+        )
+      else
+        render js: %(
+          window.location.reload();
+        )
+      end
     else
       flash.now[:alert] = item.errors.full_messages.to_sentence
       render js: %(

@@ -1,5 +1,5 @@
 sr-latin:
-  site_title: Moja aplikacija
+  site_title: TRK BOT
   home: Početak
   language: jezik
   language_name:
@@ -29,6 +29,7 @@ sr-latin:
   choose_place_and_activity: Izaberi mesto i aktivnost, a mi ćemo ti predložiti događaje...
   where_are_you_going_on_the_weekend: 'Gde ćeš ići za vikend ?'
   search: Pronađi
+  search_site: Pronađi na sajtu
   please_select: Molim izaberite
   last_message: Poslednja poruka
   contact: Kontakt
@@ -40,4 +41,5 @@ sr-latin:
   log_in_as: Uloguj se kao
   dashboard: Kontrolna tabla
   my_account: Moj nalog
+  my_company: Moja kompanija
   change_item_name: 'Promeni %{item_name}'

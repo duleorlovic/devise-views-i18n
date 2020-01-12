@@ -1,5 +1,4 @@
 module TextHelper
-  # rubocop:disable Rails/OutputSafety
   def text_with_help_icon(main_text, help_text)
     <<~HTML
       #{main_text}
@@ -14,7 +13,6 @@ module TextHelper
      " <i class='far fa-edit move-1-px #{'show-on-hover-target' if show_on_hover}' aria-hidden='true'></i> "
     ).html_safe
   end
-  # rubocop:enable Rails/OutputSafety
 
   def button_with_edit_icon_tag(text, url, modal_title, attrs: {})
     attrs.reverse_merge!(

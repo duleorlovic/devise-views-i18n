@@ -4,27 +4,21 @@
 <div class='row'>
   <div class='col-sm-6'>
     <div class='card'>
-      <div class='card-header'>
-        <h5 class='card-title'>
-          <%= current_user.company.name %>
-          <% if current_user.admin_of_a_current_company? %>
-            <%= button_tag_open_modal edit_my_company_path %>
-          <% end %>
-        </h5>
-      </div>
       <div class='card-body'>
-        <dl class='row justify-content-start'>
-          <%= detail_view current_user.company, *Company::FIELDS, label_class: 'col-sm-6' %>
-        </dl>
+        <% if current_user.admin_of_a_current_company? %>
+          <%= button_tag_open_modal edit_my_company_path, pull_right: true %>
+        <% end %>
+        <%= detail_view_list current_user.company, *Company::FIELDS %>
       </div>
     </div>
   </div>
   <div class='col-sm-6'>
     <div class='card'>
-      <div class='card-header'>
-        <h5 class='card-title'><i class='demo-icon icon-users mx-1'></i>Users</h5>
-      </div>
       <div class='card-body'>
+        <%= button_tag_open_modal new_company_user_path do %>
+          <i class="demo-icon icon-plus" aria-hidden="true"></i>
+          <%= t_crud('add_new', User) %>
+        <% end %>
         <%= @datatable.render_html search_company_users_path(format: :json) %>
       </div>
     </div>
@@ -32,12 +26,10 @@
 </div>
 <% if current_user.company_users.size > 1 %>
   <div class='card'>
-    <div class='card-header'>
+    <div class='card-body'>
       <h5 class='card-title'>
         <%= t('you_belongs_to_multiple_companies') %>
       </h5>
-    </div>
-    <div class='card-body'>
       <div class='text-center'>
         <p><%= t'please_choose_company_which_you_want_to_access' %></p>
         <% current_user.companies.by_name.each do |company| %>

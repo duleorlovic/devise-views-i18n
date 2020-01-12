@@ -14,19 +14,21 @@ rubocop --auto-correct # to autocorrent correct some files (except lineLength)
 git commit -m'rails new myapp'
 ```
 
-Home page
+In the begging we will use generators, but later will will copy all views,
+controllers, models to overwrite default. If you skip some column you need to
+propagate those changes in those templates...
+
+Lets start with home page
 ```
-rails g pages home contact
+rails g controller pages home contact --no-helper --no-assets
 ```
 
-First you need to have devise installed, but usually users from same company
-(club, organization) want to share permissions, so first create `company` model
-and than `user` and than `company_users` with position.
+First you need to have devise installed, but usually for SASS app, users from
+same company (club, organization) want to share permissions, so first create
+`company` model and than `user` and than `company_users` with position.
 ```
 rails g model company name
-```
 
-```
 cat >> Gemfile <<HERE_DOC
 
 # user authentication
@@ -49,7 +51,7 @@ last_migration
 rake db:migrate
 git add . && git commit -m "rails g devise user"
 ```
-
+Generate CompanyUser model
 ```
 rails g model company_users company:references user:references position:string
 ```
@@ -106,9 +108,10 @@ By cloning the repo, you will get templates, translation files, helper (for
 git clone git@github.com:duleorlovic/devise-views-i18n.git tmp/devise-views-i18n
 ```
 
-Fontello icons that are used are stored in `vendor/assets/fonts/config.json` so
-upload (import) that on http://fontello.com/ using icon settings. Than download
-it and move to `tmp/fontello.zip` and than run
+Fontello icons that are used are stored in
+`tmp/devise-views-i18n/vendor/assets/fonts/config.json` so upload (import) that
+on http://fontello.com/ using icon settings. Than download it and move to
+`tmp/fontello.zip` and than run
 ```
 mkdir vendor/assets/fonts -p
 cp tmp/devise-views-i18n/vendor/assets/fonts/config.json vendor/assets/fonts/
@@ -121,6 +124,11 @@ fontello open
 # select new icons
 bundle exec fontello convert
 
+# to create custom logo you can create svg using ruby, but you can also update
+vi app/assets/images/logo.svg
+# to upload your icon you need to simplify svg, use inkspace or
+# https://jakearchibald.github.io/svgomg/
+
 git add . && git commit -m'Using fontello.com icons'
 ```
 
@@ -128,6 +136,7 @@ Copy files app/views/devise, app/views/pages, app/assets, app/helpers
 config/initializers, config/locales
 
 ```
+rm app/assets/stylesheets/application.css
 cp -r tmp/devise-views-i18n/app/* app/
 cp -r tmp/devise-views-i18n/config/* config/
 cp tmp/devise-views-i18n/db/seeds.rb db/
@@ -155,10 +164,7 @@ override them for development env
     config.action_view.raise_on_missing_translations = true
     config.active_job.queue_adapter = :sidekiq
     # also check config/initializers/const.rb
-```
-Development config
 
-```
 # config/environments/development.rb
   config.action_mailer.delivery_method = :letter_opener
   config.generators.assets = false
@@ -167,9 +173,6 @@ Development config
 ```
 Some modifications
 ```
-git rm app/assets/stylesheets/application.css
-# logo can be created with inkspace
-touch app/assets/images/logo.svg
 # edit constants
 vi config/initializers/const.rb
 # edit sidekiq
@@ -178,16 +181,27 @@ vi config/sidekiq.yml
 vi config/locales/en.yml
 # change mailer sender for devise
 vi config/initializers/devise.rb
-  config.mailer_sender = Const.common[:mailer_sender]
+  config.mailer_sender = Rails.application.credentials.mailer_sender
 # change mailer sender for application mailers
 vi app/mailers/application_mailer.rb
-  default from: Const.common[:mailer_sender]
+  default from: Rails.application.credentials.mailer_sender
 ```
+
+Run tests
+```
+rake
+```
+
+When you use scaffold you will get controller and system test, but you also have
+example in `test/controllers/admin/users_controller_test.rb` (crud without
+new and create), `test/controllers/company_users_controller_test.rb`,
+`test/system/my_accounts_test.rb`.
 
 Add credentials to send emails through SMTP, exception notification
 ```
 rails credentials:edit
 exception_recipients: my@gmail.com
+mailer_sender: My Company <my@gmail.com>
 
 smtp_username: my@gmail.com
 smtp_password: mypassword
@@ -208,4 +222,19 @@ heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
 heroku run rails db:migrate:reset DISABLE_DATABASE_ENVIRONMENT_CHECK=1
 # you need to use
 heroku pg:reset --confirm myapp
+```
+Seed from fixtures is not supported on heroku psql.
+
+When you generate scaffol for new models, you need to generate datatables
+(trk_datatables currently works only for existing/migrated models)
+
+```
+rails g scaffold parser name company:references
+rake db:migrate
+rails g trk_datatables parser # use SINGULAR
+vi config/routes.rb # add collection do post :search
+
+vi config/locales/activerecord_actiemodels.sr-lating.yml
+# add parser inside models and attributes
+yml_google_translate_api.rb config/locales/activerecord_activemodels.sr-latin.yml sr_to_cyr en_humanize
 ```

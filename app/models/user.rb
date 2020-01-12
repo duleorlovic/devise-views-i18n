@@ -18,7 +18,7 @@ class User < ApplicationRecord
     true
   end
 
-  def remove_me_from_company(target_company)
+  def remove_me_from_company!(target_company)
     if companies.size == 1
       # we will remove the account
       destroy_my_data!
@@ -30,5 +30,9 @@ class User < ApplicationRecord
     else
       company_users.find_by(company: company).destroy!
     end
+  end
+
+  def destroy_my_data!
+    # TODO: gdpr
   end
 end
