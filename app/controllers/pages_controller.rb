@@ -12,7 +12,7 @@ class PagesController < ApplicationController
 
     user = User.find params[:id]
     sign_in :user, user, byepass: true
-    redirect_to params[:redirect_to] || root_path
+    redirect_to params[:redirect_to] || dashboard_path
   end
 
   def contact

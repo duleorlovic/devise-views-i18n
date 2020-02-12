@@ -3,7 +3,7 @@ import { Controller } from 'stimulus'
 export default class extends Controller {
   add() {
     let selector = this.data.get('selector')
-    let elements = this._findElements(selector)
+    let elements = document.querySelectorAll(selector)
     for (let element of elements) {
       element.classList.add('active')
     }
@@ -14,25 +14,26 @@ export default class extends Controller {
   // <%= button_tag class: "btn btn-link", 'data-controller': 'activate', 'data-action': 'activate#toggle', 'data-activate-selector': '#sidebar,.sidebar__overlay' do %>
   toggle() {
     let selector = this.data.get('selector')
-    let elements = this._findElements(selector)
+    let elements = document.querySelectorAll(selector)
     for (let element of elements) {
       element.classList.toggle('active')
     }
     console.log(`activate toggle ${selector}`)
   }
 
-  _findElements(selectors) {
-    let elements = []
-    for (let selector of selectors.split(',')) {
-      if (selector[0] == '#') {
-        let element_by_id = document.getElementById(selector.substring(1))
-        if (element_by_id) elements.push(element_by_id)
-      }
-      if (selector[0] == '.') {
-        let elements_by_class = document.getElementsByClassName(selector.substring(1))
-        elements = elements.concat(Array.from(elements_by_class))
+  toggleForValueIncludes() {
+    let selector = this.data.get('selector')
+    let elements = document.querySelectorAll(selector)
+    let value = this.element.value
+    for (let element of elements) {
+      // instead of element.dataset('activateTarget) we can use
+      // element.getAttribute('data-activate-target')
+      if (element.getAttribute(selector.slice(1, -1)) && element.getAttribute(selector.slice(1, -1)).includes(value)) {
+        element.classList.add('active')
+      } else {
+        element.classList.remove('active')
       }
     }
-    return elements
+    console.log(`activate toggleForValueIncludes ${selector}`)
   }
 }
