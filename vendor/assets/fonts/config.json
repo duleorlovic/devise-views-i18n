@@ -102,12 +102,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "ecf8edb95c3f45eb433b4cce7ba9f740",
-      "css": "users",
-      "code": 59402,
-      "src": "entypo"
-    },
-    {
       "uid": "44e04715aecbca7f266a17d5a7863c68",
       "css": "plus",
       "code": 59403,
@@ -201,6 +195,12 @@
       "uid": "5211af474d3a9848f67f945e2ccaf143",
       "css": "cancel",
       "code": 59414,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "b86df50a2d898bfcd371fa86c0b8b2fb",
+      "css": "user-o",
+      "code": 62144,
       "src": "fontawesome"
     }
   ]

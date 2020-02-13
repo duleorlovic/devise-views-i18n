@@ -21,6 +21,11 @@ propagate those changes in those templates...
 Lets start with home page
 ```
 rails g controller pages home contact --no-helper --no-assets
+
+# we will overwrite config/routes.rb in next steps
+sed -i config/routes.rb -e "/^end$/i \\
+  root 'pages#home'\
+"
 ```
 
 First you need to have devise installed, but usually for SASS app, users from
@@ -46,7 +51,7 @@ last_migration
       t.boolean :superadmin, null: false, default: false
       # this is reference to currently selected company
       t.references :company, null: false
-# uncomment Trackable and Confirmable and add_index
+# uncomment Trackable Confirmable Lockable and add_index for tokens
 
 rake db:migrate
 git add . && git commit -m "rails g devise user"
@@ -108,25 +113,30 @@ By cloning the repo, you will get templates, translation files, helper (for
 git clone git@github.com:duleorlovic/devise-views-i18n.git tmp/devise-views-i18n
 ```
 
-Fontello icons that are used are stored in
+You need to generate fontello styles (since they will be imported in
+application.sass).Fontello icons that are used are stored in
 `tmp/devise-views-i18n/vendor/assets/fonts/config.json` so upload (import) that
-on http://fontello.com/ using icon settings. Than download it and move to
-`tmp/fontello.zip` and than run
+on http://fontello.com/ using icon settings (wrench). Than download it and move to
+`tmp/fontello.zip` like
 ```
+mv ~/Downloads/fontello-7c11985d.zip tmp/fontello.zip
 mkdir vendor/assets/fonts -p
 cp tmp/devise-views-i18n/vendor/assets/fonts/config.json vendor/assets/fonts/
-bundle exec fontello convert --no-download
+fontello convert --no-download
 # restart rails server and open http://localhost:3000/fontello-demo.html
 gnome-open http://localhost:300`expr $(get_current_viewport) + 1`/fontello-demo.html
 
 # when you want to update you can
 fontello open
 # select new icons
-bundle exec fontello convert
+fontello convert
+```
 
-# to create custom logo you can create svg using ruby, but you can also update
+To create custom logo you can create svg using ruby, but you can also replace
+TRK in current svg
+```
 vi app/assets/images/logo.svg
-# to upload your icon you need to simplify svg, use inkspace or
+# or to upload your icon you need to simplify svg, use inkspace or
 # https://jakearchibald.github.io/svgomg/
 
 git add . && git commit -m'Using fontello.com icons'
@@ -143,11 +153,6 @@ cp tmp/devise-views-i18n/db/seeds.rb db/
 cp tmp/devise-views-i18n/Procfile .
 cp -r tmp/devise-views-i18n/lib/rails lib
 cp -r tmp/devise-views-i18n/lib/templates lib
-```
-
-For test we need to copy main `test_helper.rb` since it is generated with `rails
-new`. For other stuff we use templates.
-```
 cp -r tmp/devise-views-i18n/test/* test/
 ```
 
@@ -163,7 +168,6 @@ override them for development env
     config.action_mailer.delivery_method = :smtp
     config.action_view.raise_on_missing_translations = true
     config.active_job.queue_adapter = :sidekiq
-    # also check config/initializers/const.rb
 
 # config/environments/development.rb
   config.action_mailer.delivery_method = :letter_opener
@@ -171,7 +175,7 @@ override them for development env
   config.generators.helper = false
   config.generators.jbuilder = false
 ```
-Some modifications
+Prepare some modifications to following files
 ```
 # edit constants
 vi config/initializers/const.rb
@@ -182,20 +186,7 @@ vi config/locales/en.yml
 # change mailer sender for devise
 vi config/initializers/devise.rb
   config.mailer_sender = Rails.application.credentials.mailer_sender
-# change mailer sender for application mailers
-vi app/mailers/application_mailer.rb
-  default from: Rails.application.credentials.mailer_sender
 ```
-
-Run tests
-```
-rake
-```
-
-When you use scaffold you will get controller and system test, but you also have
-example in `test/controllers/admin/users_controller_test.rb` (crud without
-new and create), `test/controllers/company_users_controller_test.rb`,
-`test/system/my_accounts_test.rb`.
 
 Add credentials to send emails through SMTP, exception notification
 ```
@@ -214,6 +205,24 @@ google_recaptcha_secret_key: ________
 Go to https://myaccount.google.com/u/8/lesssecureapps and enable less secure app
 so you can send emails
 
+Run tests so all tests should pass
+```
+# `rake` will invoke `rails test`
+rails test
+rails test:system
+```
+
+When you use scaffold you will get controller and system test. You can also find
+example in `test/controllers/admin/users_controller_test.rb` (crud without
+new and create), `test/controllers/company_users_controller_test.rb`,
+`test/system/my_accounts_test.rb`.
+
+On heroku you can create or add existing
+```
+heroku create my-app
+# or existing
+git remote add heroku https://git.heroku.com/my-app.git
+```
 For heroku you can use this command to configure master key
 ```
 heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
@@ -225,7 +234,7 @@ heroku pg:reset --confirm myapp
 ```
 Seed from fixtures is not supported on heroku psql.
 
-When you generate scaffol for new models, you need to generate datatables
+When you generate scaffold for new models, you need to generate datatables
 (trk_datatables currently works only for existing/migrated models)
 
 ```

@@ -2,7 +2,7 @@
 DEFAULTS: &DEFAULTS
   name: $LABEL Name
   email: $LABEL@email.com
-  company: my_comp
+  company: my_company
   confirmed_at: 2018-12-22
   encrypted_password: <%= encrypted_password %>
   locale: <%= I18n.default_locale %>

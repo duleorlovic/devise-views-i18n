@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :companies, through: :company_users, dependent: :destroy
   belongs_to :company
 
-  validates :email, presence: true
+  validates :email, :company, presence: true
 
   def admin_of_a_current_company?
     company_users.admin.where(company: company).present?

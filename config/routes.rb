@@ -1,10 +1,5 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
-  resources :parsers do
-    collection do
-      post :search
-    end
-  end
   root 'pages#home'
   devise_for :users
   authenticate :user, ->(u) { u.superadmin? } do
@@ -13,6 +8,7 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   get 'sign-in-development/:id', to: 'pages#sign_in_development', as: :sign_in_development
+  get 'set_locale', to: 'application#set_locale'
   get 'contact', to: 'pages#contact'
   post 'contact', to: 'pages#submit_contact'
   post 'notify-javascript-error', to: 'pages#notify_javascript_error'
